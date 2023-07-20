@@ -12,6 +12,8 @@
 #define LWR 1
 #define RSE 2
 #define ADJ 3
+#define NUM 4
+#define FKEYS 5
 
 &lt {
     quick_tap_ms = <200>;
@@ -21,43 +23,230 @@
     quick_tap_ms = <200>;
 };
 
+&sk {
+    release-after-ms = <2000>;
+    quick-release;
+};
+
 / {
+    combos {
+        compatible = "zmk,combos";
+        combo_esc {
+            timeout-ms = <20>;
+            key-positions = <19 20>;
+            bindings = <&kp ESC>;
+        };
+        combo_left {
+            timeout-ms = <20>;
+            key-positions = <16 17>;
+            bindings = <&kp LS(LC(LA(LG(KP_N1))))>;
+        };
+        combo_right {
+            timeout-ms = <20>;
+            key-positions = <18 19>;
+            bindings = <&kp LS(LC(LA(LG(KP_N2))))>;
+        };
+    };
+    
+    macros {
+        z_mac_dword: z_mac_dword {
+            label = "ZM_z_mac_dword";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LALT>
+                , <&macro_tap &kp BSPC>
+                , <&macro_release &kp LALT>
+                ;
+        };
+        z_mac_undo: z_mac_undo {
+            label = "ZM_z_mac_undo";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LGUI>
+                , <&macro_tap &kp Z>
+                , <&macro_release &kp LGUI>
+                ;
+        };
+        z_mac_cut: z_mac_cut {
+            label = "ZM_z_mac_cut";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LGUI>
+                , <&macro_tap &kp X>
+                , <&macro_release &kp LGUI>
+                ;
+        };
+        z_mac_copy: z_mac_copy {
+            label = "ZM_z_mac_copy";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LGUI>
+                , <&macro_tap &kp C>
+                , <&macro_release &kp LGUI>
+                ;
+        };
+        z_mac_paste: z_mac_paste {
+            label = "ZM_z_mac_paste";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LGUI>
+                , <&macro_tap &kp V>
+                , <&macro_release &kp LGUI>
+                ;
+        };
+        z_mac_select: z_mac_select {
+            label = "ZM_z_mac_select";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LGUI>
+                , <&macro_tap &kp A>
+                , <&macro_release &kp LGUI>
+                ;
+        };
+        z_lw_dword: z_lw_dword {
+            label = "ZM_z_lw_dword";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp BSPC>
+                , <&macro_release &kp LCTRL>
+                ;
+        };
+        z_lw_undo: z_lw_undo {
+            label = "ZM_z_lw_undo";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp Z>
+                , <&macro_release &kp LCTRL>
+                ;
+        };
+        z_lw_cut: z_lw_cut {
+            label = "ZM_z_.w_cut";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp X>
+                , <&macro_release &kp LCTRL>
+                ;
+        };
+        z_lw_copy: z_lw_copy {
+            label = "ZM_z_lw_copy";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp C>
+                , <&macro_release &kp LCTRL>
+                ;
+        };
+        z_lw_paste: z_lw_paste {
+            label = "ZM_z_lw_paste";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp V>
+                , <&macro_release &kp LCTRL>
+                ;
+        };
+        z_lw_select: z_lw_select {
+            label = "ZM_z_lw_select";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp A>
+                , <&macro_release &kp LCTRL>
+                ;
+        };
+        z_next_tab: z_next_tab {
+            label = "ZM_z_next_tab";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp TAB>
+                , <&macro_release &kp LCTRL>
+                ;
+        };
+        z_prev_tab: z_prev_tab {
+            label = "ZM_z_prev_tab";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_press &kp LSHFT>
+                , <&macro_tap &kp TAB>
+                , <&macro_release &kp LSHFT>
+                , <&macro_release &kp LCTRL>
+                ;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
             bindings = <
-         &kp GRAVE   &kp Q     &kp W      &kp E            &kp R      &kp T        &kp Y           &kp U      &kp I                   &kp O     &kp P       &kp LBKT
-          &kp LCTRL   &kp A     &kp S      &kp D            &kp F      &kp G        &kp H           &kp J      &kp K                   &kp L  &kp SEMI  &mt RCTRL SQT
-           &kp LALT   &kp Z     &kp X      &kp C            &kp V      &kp B        &kp N           &kp M  &kp COMMA                 &kp DOT  &kp FSLH  &mt RALT BSLH
-                             &kp LGUI  &lt 2 TAB  &mt LSHFT SPACE  &lt 1 RET    &lt 1 ESC  &mt RSHFT BSPC  &lt 2 DEL  &mt RGUI RIGHT_BRACKET
+            &kp TAB   &kp Q     &kp W      &kp E            &kp R      &kp T        &kp Y           &kp U      &kp I                   &kp O     &kp P       &kp LBKT
+          &kp LCTRL   &kp A     &kp S      &kp D            &kp F      &kp G        &kp H           &kp J      &kp K                   &kp L  &kp SEMI        &kp SQT
+          &kp LSHFT   &kp Z     &kp X      &kp C            &kp V      &kp B        &kp N           &kp M  &kp COMMA                 &kp DOT  &kp FSLH      &kp RSHFT
+                             &kp LALT   &kp LGUI          &mo LWR    &kp SPC      &kp RET         &mo RSE   &kp BSPC    &kp LS(LC(LA(LGUI)))
             >;
         };
 
         lower_layer {
             bindings = <
- &kp UNDER    &kp F1  &kp F2     &kp F3    &kp F4     &kp F5       &kp F6    &kp F7     &kp F8    &kp F9   &kp F10          &kp F11
-        &mt LCTRL PLUS  &kp EXCL  &kp AT   &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp STAR  &kp LPAR  &kp RPAR  &mt RCTRL MINUS
-        &mt LALT EQUAL    &kp N1  &kp N2     &kp N3    &kp N4     &kp N5       &kp N6    &kp N7     &kp N8    &kp N9    &kp N0           &trans
-                                  &trans  &lt 3 TAB    &trans     &trans       &trans    &trans  &lt 3 DEL    &trans
+             &mo FKEYS       &kp N1      &kp N2        &kp N3        &kp N4           &kp N5           &kp N6      &kp N7        &kp N8      &kp N9     &kp N0     &kp LC(BSLH)
+                &trans     &kp LALT   &kp LCTRL      &kp LGUI     &kp LSHFT          &kp ESC         &kp LEFT    &kp DOWN        &kp UP   &kp RIGHT    &kp TAB           &trans
+               &mo NUM  &z_mac_undo  &z_mac_cut   &z_mac_copy  &z_mac_paste    &z_mac_select            &none   &kp PG_DN     &kp PG_UP    &kp HOME    &kp END            &none
+                                         &trans        &trans        &trans           &trans         &kp BSPC     &mo ADJ       &kp DEL    &trans
             >;
         };
 
         raise_layer {
             bindings = <
-       &kp KP_NUM     &kp KP_SLASH  &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS    &kp C_VOL_UP  &kp HOME  &kp PSCRN  &kp PG_UP         &kp SLCK         &kp CAPS
-        &mt LCTRL EQUAL  &kp KP_MULTIPLY  &kp KP_N4  &kp KP_N5  &kp KP_N6   &kp KP_PLUS      &kp C_MUTE  &kp LEFT     &kp UP  &kp RIGHT          &kp INS  &mt RCTRL K_APP
-                 &trans        &kp KP_N0  &kp KP_N1  &kp KP_N2  &kp KP_N3    &kp KP_DOT    &kp C_VOL_DN   &kp END   &kp DOWN  &kp PG_DN  &kp PAUSE_BREAK           &trans
-                                             &trans     &trans     &trans     &lt 3 RET       &lt 3 ESC    &trans     &trans     &trans
+               &trans      &kp EXCL        &kp AT  &kp HASH  &kp DLLR    &kp PRCNT                      &kp CARET      &kp AMPS     &kp ASTRK    &kp LPAR         &kp RPAR               &kp RBKT
+         &z_mac_dword  &kp KP_MINUS  &kp KP_EQUAL  &kp LBKT  &kp RBKT     &kp BSPC                   &kp LS(FSLH)    &sk LSHIFT     &sk LCTRL    &sk LGUI         &sk LALT   &sk LS(LC(LA(LGUI)))
+           &caps_word     &kp UNDER      &kp PLUS  &kp LBRC  &kp RBRC      &kp SQT                        &kp DQT     &kp GRAVE     &kp TILDE    &kp BSLH         &kp PIPE               &kp CAPS
+                                           &trans   &trans    &mo ADJ      &kp F19                         &trans        &trans        &trans      &trans
             >;
         };
 
         adjust_layer {
             bindings = <
- &bootloader         &none         &none         &none         &none         &none           &none         &none         &none         &none         &none  &bootloader
-        &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &bt BT_SEL 4  &bt BT_SEL 3  &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0   &bt BT_CLR
-        &sys_reset         &none         &none         &none         &none         &none           &none         &none         &none         &none         &none   &sys_reset
-                                         &none        &trans         &none        &trans          &trans         &none        &trans         &none
+           &sys_reset         &none         &none    &kp K_VOL_DN  &kp K_VOL_UP    &kp K_MUTE           &none   &z_prev_tab    &z_next_tab         &none    &none  &bootloader
+           &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1    &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4           &none     &kp PG_DN      &kp PG_UP         &none    &none   &bt BT_CLR
+                &none         &none         &none           &none         &none         &none           &none         &none          &none         &none    &none   &sys_reset
+                                            &none           &none         &none         &none           &none         &none          &none         &none
+            >;
+        };
+
+        num_layer {
+            bindings = <
+                &none   &none  &none  &none     &none    &none            &kp KP_PLUS   &kp KP_N7    &kp KP_N8         &kp KP_N9    &none  &none
+               &trans   &none  &none  &none  &kp BSPC    &none           &kp KP_MINUS   &kp KP_N4    &kp KP_N5         &kp KP_N6    &none  &none
+                &none   &none  &none  &none     &none    &none              &kp UNDER   &kp KP_N1    &kp KP_N2         &kp KP_N3    &none  &none
+                               &none  &none    &trans    &none                  &none   &kp KP_N0    &kp KP_DOT        &kp KP_COMMA
+            >;
+        };
+
+        fkeys_layer {
+            bindings = <
+               &trans   &none  &none  &none      &none    &none            &kp F1   &kp F2    &kp F3      &kp F4     &kp F5   &kp F6
+                &none   &none  &none  &none  &kp LSHFT    &none            &kp F7   &kp F8    &kp F9     &kp F10    &kp F11  &kp F12
+                &none   &none  &none  &none      &none    &none             &none    &none     &none       &none      &none    &none
+                               &none  &none     &trans    &none             &none    &none     &none       &none
             >;
         };
     };
